@@ -237,6 +237,14 @@ public operator fun DependencyMap.plus(right: DependencyMap): DependencyMap =
 public suspend inline fun <reified T> DependencyResolver.resolve(key: String? = null): T =
     get(DependencyKey<T>(key))
 
+/**
+ * Get the dependency from the configuration property by given key.
+ *
+ * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.server.plugins.di.property)
+ */
+public suspend inline fun <reified T> DependencyResolver.property(key: String): T =
+    get(DependencyKey<T>(key, PropertyQualifier))
+
 internal class MergedDependencyMap(
     private val left: DependencyMap,
     private val right: DependencyMap,
